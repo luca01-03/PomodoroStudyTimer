@@ -5,9 +5,9 @@ const timers = {
   shortBreak: 5
 }
 
-let seconds = 0; // only count seconds; conversion only happens when displaying time
+let seconds = 0; 
 let currentTimerType;
-let iID; // interval ID
+let iID;
 
 // control buttons
 const startBtn = document.querySelector('#start');
