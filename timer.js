@@ -1,11 +1,10 @@
-// single source of information: id of buttons and minute values
+
 const timers = {
   pomodoro: 25,
   longBreak: 15,
   shortBreak: 5
 }
 
-// global variables
 let seconds = 0; // only count seconds; conversion only happens when displaying time
 let currentTimerType;
 let iID; // interval ID
@@ -54,7 +53,7 @@ function pauseTimer() {
   pauseBtn.disabled = "true";
 }
 
-// assign click handlers for timer buttons and control buttons
+// click handlers for timer buttons and control buttons
 document.querySelectorAll('#timers button').forEach(button => {
   button.addEventListener('click', () => setTimer(button.id));
 });
