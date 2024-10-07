@@ -1,9 +1,8 @@
-
 const timers = {
   pomodoro: 25,
   longBreak: 15,
-  shortBreak: 5
-}
+  shortBreak: 5,
+};
 
 let seconds = 0;
 let currentTimerType;
@@ -90,13 +89,13 @@ function resetTimer() {
   } catch {
     console.error("Can't reset timer: ", error);
   }
-
 }
 
 // click handlers for timer buttons and control buttons
-document.querySelectorAll("#timers button").forEach(button => {
+document.querySelectorAll("#timers button").forEach((button) => {
   button.addEventListener("click", () => setTimer(button.id));
 });
 startBtn.addEventListener("click", startTimer);
 pauseBtn.addEventListener("click", pauseTimer);
 resetBtn.addEventListener("click", resetTimer);
+

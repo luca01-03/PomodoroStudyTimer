@@ -1,0 +1,79 @@
+#settings-container {
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  visibility: hidden;
+  background-color: rgba(169, 169, 169, 0.98);
+  width: 42vw;
+  height: 28vw;
+  max-width: 90vw;
+  max-height: 90vh;
+  color: black;
+  position: relative;
+  top: -12vw;
+  border-radius: 30px;
+  overflow: auto;
+}
+
+#settings-body {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+}
+
+#button-close {
+  margin: 1rem;
+  float: right;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.settings-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  margin-bottom: 0.5rem;
+  width: 20vh;
+  background: none;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+.settings-button:hover {
+  color: lightcoral;
+}
+
+/* general / theme / timer */
+.settings-categories {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin: 2rem 2rem;
+  justify-content: center;
+  height: 100%;
+  margin-top: 8vh;
+}
+
+/* Timer container */
+#timer-settings-selection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem;
+    gap: 0rem;
+    flex-wrap: wrap;
+}
+
+.timer-setting {
+    text-align: center;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    min-width: 100px;
+    max-width: 200px;
+}
