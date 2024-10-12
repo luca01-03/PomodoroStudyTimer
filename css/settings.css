@@ -1,25 +1,40 @@
+/* Modal container */
 #settings-container {
   flex-wrap: wrap;
   display: flex;
   flex-direction: column;
   margin: auto;
   visibility: hidden;
-  background-color: rgba(169, 169, 169, 0.98);
-  width: 42vw;
-  height: 28vw;
+  background: linear-gradient(
+    135deg,
+    #f0f0f0,
+    #d9d9d9
+  ); /* Add gradient background */
+  width: 45vw;
+  height: 26.1vw;
   max-width: 90vw;
   max-height: 90vh;
   color: black;
   position: relative;
-  top: -12vw;
+  top: -15vw;
   border-radius: 30px;
   overflow: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  padding: 2rem;
+  border: 0.5rem solid #ccc;
 }
 
+#mainContainer {
+  top: 10rem;
+}
 #settings-body {
-    display: flex;
-    height: 100%;
-    flex-wrap: wrap;
+  display: flex;
+  height: 100%;
+  flex-wrap: wrap;
+}
+
+.button {
+  font-weight: bold;
 }
 
 #button-close {
@@ -29,23 +44,58 @@
   background: none;
   border: none;
   font-size: 1.5rem;
+  color: #333; 
+  transition: color 0.3s; 
+  position: relative;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 1;
+  font-weight: bold;
+  
+}
+
+.mainTimer {
+  font-weight: bold;
+  font-size: 6.5rem;  
+  display: inline-block;
+}
+
+#button-close:hover {
+  color: lightcoral; /* Change color on hover */
 }
 
 .settings-button {
   padding: 0.5rem 1rem;
+  background-color: #eee;
   border: 1px solid #ccc;
-  background-color: #f0f0f0;
-  margin-bottom: 0.5rem;
-  width: 20vh;
-  background: none;
-  color: white;
-  border: none;
-  font-size: 1.5rem;
   text-align: left;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  width: 10em;
+  border-radius: 1rem;
+  color: lightcoral;
+  box-shadow: 0 0.4rem #dfd9d9;
+  cursor: pointer;
+  font-weight: 500;
+  
 }
 
-.settings-button:hover {
-  color: lightcoral;
+.settings-button:active {
+  color: white;
+  box-shadow: 0 0.2rem #dfd9d9;
+  transform: translateY(0.2rem);
+}
+
+.settings-button:hover:not(:disabled) {
+  background: lightcoral;
+  color: white;
+  text-shadow: 0 0.1rem #bcb4b4;
+}
+
+.settings-button:disabled {
+  cursor: auto;
+  color: grey;
 }
 
 /* general / theme / timer */
@@ -53,27 +103,93 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  margin: 2rem 2rem;
+  margin: 0rem 0rem;
   justify-content: center;
   height: 100%;
-  margin-top: 8vh;
+  margin-top: 12vh;
+  position: relative;
+  bottom: 5.5rem;
+
 }
 
-/* Timer container */
 #timer-settings-selection {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 2rem;
-    gap: 0rem;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 2rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 4rem;
+  right: 2rem;
 }
 
+/* work / short/ long div */
 .timer-setting {
-    text-align: center;
-    flex: 1;
-    margin: 0;
-    padding: 0;
-    min-width: 100px;
-    max-width: 200px;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  width: 100px;
+  font-weight: 500;
+}
+
+/* Number control styles */
+/* If put to center then the work timer heading is too far left, so separate */
+.number-control {
+  display: flex;
+  align-items: right;
+  text-align: right;
+}
+
+.number-left::before,
+.number-right::after {
+  content: attr(data-content);
+  background-color: #060505;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  width: 20px;
+  height: 100%; /* Ensure full height */
+  color: white;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  -moz-appearance: textfield; /* Remove arrows in Firefox */
+  -webkit-appearance: none; /* Remove arrows in Chrome, Safari, and Edge */
+  appearance: none; /* Remove arrows in all browsers */
+}
+
+.number-left::before {
+  content: "-";
+  padding: 0 10px;
+}
+
+.number-right::after {
+  content: "+";
+  padding: 0 10px;
+}
+
+.number-quantity {
+  padding: 0.25rem;
+  border: 1px solid black;
+  width: 50px;
+  -moz-appearance: textfield;
+  text-align: right;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.number-left:hover::before,
+.number-right:hover::after {
+  background-color: #666666;
+}
+
+/* Work heading is a bit skewed to left side so this is to adjust it. */
+.timer-setting label[for="work-timer"] {
+  margin-left: 1.7rem;
+}
+
+#timer-display {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }

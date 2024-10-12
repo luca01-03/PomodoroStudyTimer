@@ -1,6 +1,6 @@
 const timers = {
   pomodoro: 25,
-  longBreak: 15,
+  longBreak: 50,
   shortBreak: 5,
 };
 
