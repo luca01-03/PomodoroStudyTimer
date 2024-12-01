@@ -3,8 +3,8 @@
   padding: 0;
 }
 
-body {
-background: url("../images/image2.jpg") center no-repeat;
+body, html {
+background: url("https://raw.githubusercontent.com/luca28-04/PomodoroStudyTimer/master/images/image2.jpg") center no-repeat;
 background-attachment: fixed;
 background-size: cover; /* Set to cover so when min it fills page */
 font-family: 'Space Grotesk', sans-serif;
