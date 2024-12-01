@@ -4,7 +4,7 @@
 }
 
 body {
-background: url(../images/image2.jpg) center no-repeat;
+background: url("../images/image2.jpg") center no-repeat;
 background-attachment: fixed;
 background-size: cover; /* Set to cover so when min it fills page */
 font-family: 'Space Grotesk', sans-serif;
