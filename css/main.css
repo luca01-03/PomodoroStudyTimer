@@ -20,7 +20,7 @@ min-width: 100%;
   text-align: center;
   position: relative;
   top: 200px;
-  font-weight: 100;
+  
 }
 
 .button{
@@ -33,7 +33,7 @@ min-width: 100%;
   background-color: transparent;
   margin-right: 45px;
   font-size: 25px;
-  font-weight: 100;
+  font-weight: 400;
 }
 
 #start {

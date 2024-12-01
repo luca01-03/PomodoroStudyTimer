@@ -5,11 +5,7 @@
   flex-direction: column;
   margin: auto;
   visibility: hidden;
-  background: linear-gradient(
-    135deg,
-    #f0f0f0,
-    #d9d9d9
-  ); /* Add gradient background */
+  background: linear-gradient(135deg, #f0f0f0, #d9d9d9); 
   width: 45vw;
   height: 26.1vw;
   max-width: 90vw;
@@ -25,16 +21,45 @@
 }
 
 #mainContainer {
-  top: 10rem;
+  text-align: center;
+  position: relative;
+  top: 200px;
+  font-weight: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.timerButtons {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.button {
+  color: white;
+  border-color: white;
+  border-style: solid;
+  border-radius: 35px;
+  padding: 10px 15px 10px 15px;
+  border-width: 2px;
+  background-color: transparent;
+  margin-right: 45px;
+  font-size: 25px;
+  font-weight: bold; 
+}
+
+#start {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 #settings-body {
   display: flex;
   height: 100%;
   flex-wrap: wrap;
-}
-
-.button {
-  font-weight: bold;
 }
 
 #button-close {
@@ -51,7 +76,6 @@
   left: 1rem;
   z-index: 1;
   font-weight: bold;
-  
 }
 
 .mainTimer {
@@ -61,7 +85,7 @@
 }
 
 #button-close:hover {
-  color: lightcoral; /* Change color on hover */
+  color: lightcoral;
 }
 
 .settings-button {
@@ -78,7 +102,6 @@
   box-shadow: 0 0.4rem #dfd9d9;
   cursor: pointer;
   font-weight: 500;
-  
 }
 
 .settings-button:active {
@@ -109,7 +132,6 @@
   margin-top: 12vh;
   position: relative;
   bottom: 5.5rem;
-
 }
 
 #timer-settings-selection {
@@ -149,14 +171,12 @@
   align-items: center;
   justify-content: center;
   border: 1px solid black;
-  width: 20px;
-  height: 100%; /* Ensure full height */
+  width: 10px;
+  height: 100%;
   color: white;
   transition: background-color 0.3s;
   cursor: pointer;
-  -moz-appearance: textfield; /* Remove arrows in Firefox */
-  -webkit-appearance: none; /* Remove arrows in Chrome, Safari, and Edge */
-  appearance: none; /* Remove arrows in all browsers */
+  
 }
 
 .number-left::before {
@@ -167,6 +187,7 @@
 .number-right::after {
   content: "+";
   padding: 0 10px;
+  
 }
 
 .number-quantity {
@@ -174,7 +195,7 @@
   border: 1px solid black;
   width: 50px;
   -moz-appearance: textfield;
-  text-align: right;
+  text-align: center;
   margin: 0;
   box-sizing: border-box;
 }
@@ -193,3 +214,11 @@
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+
+/* Remove arrows (spinner) in all browsers */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+

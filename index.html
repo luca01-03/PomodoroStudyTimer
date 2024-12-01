@@ -56,30 +56,33 @@
             <button id="theme-settings" class="settings-button" type="button">Theme</button>
             <button id="general-settings" class="settings-button" type="button">General</button>
           </div>
+
+
+          <!--user change time settings-->
     
           <div id="timer-settings-selection">
             <div class="timer-setting">
               <label for="work-timer">Work</label>
               <div class="number-control">
-                <div class="number-left" data-content="-"></div>
-                <input type="number" id="work-timer" name="work-timer" class="number-quantity">
-                <div class="number-right" data-content="+"></div>
+                <button class="number-left" data-content="-"></button>
+                <input type="number" id="work-timer" name="work-timer" class="number-quantity" value="25">
+                <button class="number-right" data-content="+"></button>
               </div>
             </div>
             <div class="timer-setting">
               <label for="short-break-timer">Short Break</label>
               <div class="number-control">
-                <div class="number-left" data-content="-"></div>
-                <input type="number" id="short-break-timer" name="short-break-timer" class="number-quantity">
-                <div class="number-right" data-content="+"></div>
+                <button class="number-left" data-content="-"></button>
+                <input type="number" id="short-break-timer" name="short-break-timer" class="number-quantity" value="5">
+                <button class="number-right" data-content="+"></button>
               </div>
             </div>
             <div class="timer-setting">
               <label for="long-break-timer">Long Break</label>
               <div class="number-control">
-                <div class="number-left" data-content="-"></div>
-                <input type="number" id="long-break-timer" name="long-break-timer" class="number-quantity">
-                <div class="number-right" data-content="+"></div>
+                <button class="number-left" data-content="-"></button>
+                <input type="number" id="long-break-timer" name="long-break-timer" class="number-quantity" value="50">
+                <button class="number-right" data-content="+"></button>
               </div>
             </div>
             </div>
@@ -104,6 +107,7 @@
     <script src="js/timer.js" type="text/javascript"></script>
     <script src="js/settings.js" type="text/javascript"></script>
     <script src="js/fullscreenBtn.js" type="text/javascript"></script>
+    <script src="js/timerAdjust.js" type="text/javascript"></script>
 
   </body>
 
