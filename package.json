@@ -1,0 +1,20 @@
+{
+  "name": "pomodoro-study-timer",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^25.0.1"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFiles": ["./setupJest.js"]
+  },
+  "dependencies": {
+    "util": "^0.12.5"
+  }
+}
