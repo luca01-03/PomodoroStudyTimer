@@ -1,3 +1,5 @@
+
+
 const timers = {
   pomodoro: 25,
   longBreak: 50,
@@ -5,7 +7,7 @@ const timers = {
 };
 
 let seconds = 0;
-let currentTimerType;
+let currentTimerType = "pomodoro";
 let iID;
 
 // control buttons
@@ -20,6 +22,8 @@ function updateDisplay() {
   try {
     const minutesElement = document.getElementById("minutes");
     const secondsElement = document.getElementById("seconds");
+  
+
 
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -99,3 +103,4 @@ startBtn.addEventListener("click", startTimer);
 pauseBtn.addEventListener("click", pauseTimer);
 resetBtn.addEventListener("click", resetTimer);
 
+export { updateDisplay, timers, setTimer, currentTimerType };

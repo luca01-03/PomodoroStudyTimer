@@ -1,4 +1,7 @@
+import { updateDisplay, timers, setTimer, currentTimerType } from "./timer.js";
+
 document.addEventListener('DOMContentLoaded', function() {
+
     const workTimerInput = document.getElementById("work-timer");
     const shortBreakInput = document.getElementById("short-break-timer");
     const longBreakInput = document.getElementById("long-break-timer");
@@ -6,12 +9,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const saveChangesBtn = document.getElementById("save-changes");
     const cancelChangesBtn = document.getElementById("cancel-changes");
     const adjustTimerContainer = document.getElementById("adjust-timer-container");
+    const timerContainer = document.getElementById("timer-settings-selection");
+    const settingsContainer = document.getElementById("settings-container");
 
-    const originalTimers = {
-        work: workTimerInput.value,
-        shortBreak: shortBreakInput.value,
-        longBreak: longBreakInput.value
-    };
+    const errorFlag = document.getElementById("error-title");
+    const errorFlagContainer = document.getElementById("error");
+
+    function updateInputFields() {
+        workTimerInput.value = timers.pomodoro;
+        shortBreakInput.value = timers.shortBreak;
+        longBreakInput.value = timers.longBreak;
+    }
 
     // validating the users input
     function validateInputs() {
@@ -20,22 +28,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const longBreakTime = parseInt(longBreakInput.value, 10);
 
         if (isNaN(workTime) || workTime <= 0 || workTime > 60) {
-            alert("Work timer must be between 1 and 60 minutes.");
+            errorFlag.textContent = "Work timer must be between 1 and 60 minutes";
+            errorFlagContainer.style.visibility = "visible";
+
             return false;
         }
 
         if (isNaN(shortBreakTime) || shortBreakTime <= 0 || shortBreakTime > 60) {
-            alert("Short break timer must be between 1 and 60 minutes.");
+            errorFlag.textContent = "Short break timer must be between 1 and 60 minutes";
+            errorFlagContainer.style.visibility = "visible";
             return false;
         }
 
         if (isNaN(longBreakTime) || longBreakTime <= 0 || longBreakTime > 60) {
-            alert("Long break timer must be between 1 and 60 minutes.");
+            errorFlag.textContent = "Long break timer must be between 1 and 60 minutes";
+            errorFlagContainer.style.visibility = "visible";
             return false;
         }
 
         if (shortBreakTime >= longBreakTime) {
-            alert("Short break timer must be less than long break timer.");
+            errorFlag.textContent = "Short break timer must be less than long break timer";
+            errorFlagContainer.style.visibility = "visible";
             return false;
         }
 
@@ -48,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!validateInputs()) {
                 event.preventDefault();
             } else {
-                document.getElementById("settings-container").style.visibility = "hidden";
+                settingsContainer.style.visibility = "hidden";
             }
         } catch (error) {
             console.error("Error closing settings:", error);
@@ -99,7 +112,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 timers.shortBreak = parseInt(shortBreakInput.value, 10);
                 timers.longBreak = parseInt(longBreakInput.value, 10);
                 adjustTimerContainer.style.visibility = "hidden";
-                document.getElementById("settings-container").style.visibility = "hidden";
+                settingsContainer.style.visibility = "hidden";
+                timerContainer.style.visibility = "hidden";
+                updateDisplay();
+                setTimer(currentTimerType);
+                
             }
         } catch (error) {
             console.error("Error saving:", error);
@@ -109,13 +126,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cancel changes
     cancelChangesBtn.addEventListener("click", function() {
         try {
-            workTimerInput.value = originalTimers.work;
-            shortBreakInput.value = originalTimers.shortBreak;
-            longBreakInput.value = originalTimers.longBreak;
+            updateInputFields();
             adjustTimerContainer.style.visibility = "hidden";
-            document.getElementById("settings-container").style.visibility = "hidden";
+            settingsContainer.style.visibility = "hidden";
+            timerContainer.style.visibility = "hidden";
+            errorFlagContainer.style.visibility = "hidden";
         } catch (error) {
             console.error("Error cancelling timer:", error);
         }
     });
+
+    // Implemented this so that the cancel/save btns appear when directly inputting nos
+    [workTimerInput, shortBreakInput, longBreakInput].forEach((input) => {
+        input.addEventListener("input", function() {
+            adjustTimerContainer.style.visibility = "visible";
+        })});
+    
 });
