@@ -4,11 +4,32 @@
 }
 
 body, html {
-background: url("https://raw.githubusercontent.com/luca28-04/PomodoroStudyTimer/master/images/image2.jpg") center no-repeat;
-background-attachment: fixed;
-background-size: cover; /* Set to cover so when min it fills page */
 font-family: 'Space Grotesk', sans-serif;
 min-width: 100%;
+}
+
+body.study-girl-theme {
+  background: url("https://raw.githubusercontent.com/luca28-04/PomodoroStudyTimer/master/images/image2.jpg") center no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+body.night-time-countryside-theme {
+  background: url("https://raw.githubusercontent.com/luca28-04/PomodoroStudyTimer/master/images/image1.jpg") center no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+body.salad-days-theme {
+  background: url("https://raw.githubusercontent.com/luca28-04/PomodoroStudyTimer/master/images/image3.jpg") center no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+body.timeless-togetherness-theme {
+  background: url("https://raw.githubusercontent.com/luca28-04/PomodoroStudyTimer/master/images/image4.jpg") center no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
  .button:hover {

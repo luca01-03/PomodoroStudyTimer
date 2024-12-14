@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/fullscreenBtn.css">
   <link rel="stylesheet" href="css/adjustTimer.css">
   <link rel="stylesheet" href="css/errorFlag.css">
+  <link rel="stylesheet" href="css/themeDropdown.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <title>Pomodoro Timer</title>
@@ -63,7 +64,7 @@
             </svg>
           </div>
         </div>
-            
+
         <div class="settings-body">
           <div class="settings-categories">
             <button id="timer-settings" class="settings-button" type="button">Timer</button>
@@ -71,54 +72,90 @@
             <button id="general-settings" class="settings-button" type="button">General</button>
           </div>
 
-
-          <!--user change time settings-->
-
-          <div id="timer-settings-selection">
-            <div class="timer-setting">
-              <label for="work-timer">Work</label>
-              <div class="number-control">
-                <button class="number-left" data-content="-"></button>
-                <input type="number" id="work-timer" name="work-timer" class="number-quantity" value="25">
-                <button class="number-right" data-content="+"></button>
-              </div>
+          <!--Theme dropdown-->
+          <div id="dropdown-container">
+            <div class="theme-indicator">
+              <span>Select theme:</span>
             </div>
-            <div class="timer-setting">
-              <label for="short-break-timer">Short Break</label>
-              <div class="number-control">
-                <button class="number-left" data-content="-"></button>
-                <input type="number" id="short-break-timer" name="short-break-timer" class="number-quantity" value="5">
-                <button class="number-right" data-content="+"></button>
+            <div class="select">
+              <div class="selected" data-default="Study girl" data-one="Night time countryside" data-two="Salad days"
+                data-three="Timeless togetherness">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
+                  <path
+                    d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z">
+                  </path>
+                </svg>
               </div>
-            </div>
-            <div class="timer-setting">
-              <label for="long-break-timer">Long Break</label>
-              <div class="number-control">
-                <button class="number-left" data-content="-"></button>
-                <input type="number" id="long-break-timer" name="long-break-timer" class="number-quantity" value="50">
-                <button class="number-right" data-content="+"></button>
-              </div>
-            </div>
-
-            <!--Save and cancel adjust timer buttons-->
-            <div id="adjust-timer-container">
-              <div class="adjust-timer">
-                <div>
-                  <button id="save-changes" class="adjust-timer-btn">Save changes</button>
+              <div class="options">
+                <div title="study-girl">
+                  <input id="study-girl" name="option" type="radio" checked />
+                  <label class="option" for="study-girl" data-txt="Study girl"></label>
                 </div>
-                <div>
-                  <button id="cancel-changes" class="adjust-timer-btn">Cancel</button>
+                <div title="night-time-countryside">
+                  <input id="night-time-countryside" name="option" type="radio" />
+                  <label class="option" for="night-time-countryside" data-txt="Night time countryside"></label>
+                </div>
+                <div title="salad-days">
+                  <input id="salad-days" name="option" type="radio" />
+                  <label class="option" for="salad-days" data-txt="Salad days"></label>
+                </div>
+                <div title="timeless-togetherness">
+                  <input id="timeless-togetherness" name="option" type="radio" />
+                  <label class="option" for="timeless-togetherness" data-txt="Timeless togetherness"></label>
                 </div>
               </div>
-
             </div>
+          </div>
+        </div>
+
+
+        <!--user change time settings-->
+
+        <div id="timer-settings-selection">
+          <div class="timer-setting">
+            <label for="work-timer">Work</label>
+            <div class="number-control">
+              <button class="number-left" data-content="-"></button>
+              <input type="number" id="work-timer" name="work-timer" class="number-quantity" value="25">
+              <button class="number-right" data-content="+"></button>
+            </div>
+          </div>
+          <div class="timer-setting">
+            <label for="short-break-timer">Short Break</label>
+            <div class="number-control">
+              <button class="number-left" data-content="-"></button>
+              <input type="number" id="short-break-timer" name="short-break-timer" class="number-quantity" value="5">
+              <button class="number-right" data-content="+"></button>
+            </div>
+          </div>
+          <div class="timer-setting">
+            <label for="long-break-timer">Long Break</label>
+            <div class="number-control">
+              <button class="number-left" data-content="-"></button>
+              <input type="number" id="long-break-timer" name="long-break-timer" class="number-quantity" value="50">
+              <button class="number-right" data-content="+"></button>
+            </div>
+          </div>
+
+          <!--Save and cancel adjust timer buttons-->
+          <div id="adjust-timer-container">
+            <div class="adjust-timer">
+              <div>
+                <button id="save-changes" class="adjust-timer-btn">Save changes</button>
+              </div>
+              <div>
+                <button id="cancel-changes" class="adjust-timer-btn">Cancel</button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
-    <div class="settings-footer">
+  </div>
+  <div class="settings-footer">
 
-    </div>
+  </div>
 
   </div>
   </div>
@@ -136,6 +173,7 @@
   <script src="js/settings.js" type="module"></script>
   <script src="js/fullscreenBtn.js" type="module"></script>
   <script src="js/timerAdjust.js" type="module"></script>
+  <script src="js/themeAdjust.js" type="module"></script>
 
 </body>
 
