@@ -1,3 +1,9 @@
+#dropdown-container {
+  position: absolute;
+  top: 5rem;
+  right: 10rem;
+}
+
 .select {
     width: fit-content;
     cursor: pointer;

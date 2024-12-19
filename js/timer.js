@@ -1,32 +1,51 @@
-
-
 const timers = {
   pomodoro: 25,
   longBreak: 50,
   shortBreak: 5,
 };
 
-let seconds = 0;
+// private variable for secs needed for testing
+let _seconds = 0;
 let currentTimerType = "pomodoro";
 let iID;
 
-// control buttons
-const startBtn = document.querySelector("#start");
-startBtn.disabled = true;
-const pauseBtn = document.querySelector("#pause");
-pauseBtn.disabled = true;
-const resetBtn = document.querySelector("#reset");
+let startBtn, pauseBtn, resetBtn;
+
+
+function initDOMElements() {
+  startBtn = document.querySelector("#start");
+  pauseBtn = document.querySelector("#pause");
+  resetBtn = document.querySelector("#reset");
+
+  startBtn.disabled = true;
+  pauseBtn.disabled = true;
+
+  startBtn.addEventListener("click", startTimer);
+  pauseBtn.addEventListener("click", pauseTimer);
+  resetBtn.addEventListener("click", resetTimer);
+
+  document.querySelectorAll("#timers button").forEach((button) => {
+    button.addEventListener("click", () => setTimer(button.id));
+  });
+}
+
+// getter and setter for the secs variable
+function getSeconds() {
+  return _seconds;
+}
+
+function setSeconds(value) {
+  _seconds = value;
+}
 
 // update displayed time
 function updateDisplay() {
   try {
     const minutesElement = document.getElementById("minutes");
     const secondsElement = document.getElementById("seconds");
-  
 
-
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
+    const minutes = Math.floor(_seconds / 60);
+    const remainingSeconds = _seconds % 60;
 
     if (minutes < 10) {
       minutesElement.innerText = "0" + minutes;
@@ -39,7 +58,7 @@ function updateDisplay() {
     } else if (remainingSeconds < 10) {
       secondsElement.innerText = "0" + remainingSeconds;
     } else {
-      secondsElement.innerText = seconds % 60;
+      secondsElement.innerText = remainingSeconds;
     }
   } catch (error) {
     console.error("Can't update display: ", error);
@@ -51,7 +70,7 @@ function setTimer(type) {
   try {
     clearInterval(iID);
     currentTimerType = type;
-    seconds = timers[currentTimerType] * 60;
+    setSeconds(timers[currentTimerType] * 60);
     updateDisplay();
     startBtn.removeAttribute("disabled");
   } catch {
@@ -63,14 +82,14 @@ function setTimer(type) {
 function startTimer() {
   try {
     iID = setInterval(() => {
-      seconds--;
-      if (seconds === -1) clearInterval(iID);
+      setSeconds(getSeconds() - 1);
+      if (getSeconds() === -1) clearInterval(iID);
       else updateDisplay();
     }, 1000);
     startBtn.disabled = true;
     pauseBtn.removeAttribute("disabled");
   } catch {
-    console.log("Can't start or resumer timer: ", error);
+    console.log("Can't start or resume timer: ", error);
   }
 }
 
@@ -88,19 +107,11 @@ function pauseTimer() {
 function resetTimer() {
   try {
     clearInterval(iID);
-    seconds = 0;
+    setSeconds(0);
     updateDisplay();
   } catch {
     console.error("Can't reset timer: ", error);
   }
 }
 
-// click handlers for timer buttons and control buttons
-document.querySelectorAll("#timers button").forEach((button) => {
-  button.addEventListener("click", () => setTimer(button.id));
-});
-startBtn.addEventListener("click", startTimer);
-pauseBtn.addEventListener("click", pauseTimer);
-resetBtn.addEventListener("click", resetTimer);
-
-export { updateDisplay, timers, setTimer, currentTimerType };
+export { updateDisplay, timers, setTimer, startTimer, pauseTimer, resetTimer, currentTimerType, initDOMElements, getSeconds, setSeconds };
