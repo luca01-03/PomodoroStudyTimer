@@ -1,76 +1,73 @@
-import { updateDisplay, setTimer, startTimer, pauseTimer, resetTimer, timers, initDOMElements, getSeconds, setSeconds } from "../js/timer";
+import { initDOMElements, updateDisplay, setTimer, startTimer, pauseTimer, resetTimer } from "../js/timer";
 
-describe("Pomodoro Timer", () => {
-  let startBtn, pauseBtn, resetBtn, pomodoroBtn, longBreakBtn, shortBreakBtn, minutesElement, secondsElement;
+describe('Pomodoro Timer', () => {
+  let startBtn, pauseBtn, resetBtn;
 
   beforeEach(() => {
     document.body.innerHTML = `
-      <div id="mainContainer">
-        <div id="timers" class="timerButtons">
-          <button id="pomodoro" class="button" type="button">pomodoro</button>
-          <button id="longBreak" class="button" type="button">long break</button>
-          <button id="shortBreak" class="button" type="button">short break</button>
-        </div>
-        <div id="timer-display">
-          <span id="minutes" class="mainTimer">00</span>
-          <span class="mainTimer">:</span>
-          <span id="seconds" class="mainTimer">00</span>
-        </div>
-        <div>
-          <button id="start" class="button" type="button" disabled>start</button>
-          <button id="pause" class="button" type="button" disabled>pause</button>
-          <button id="reset" class="button" type="button">reset</button>
-        </div>
+      <div id="timers">
+        <button id="pomodoro">Pomodoro</button>
+        <button id="longBreak">Long Break</button>
+        <button id="shortBreak">Short Break</button>
       </div>
+      <div id="timer-display">
+        <span id="minutes">00</span>:<span id="seconds">00</span>
+      </div>
+      <button id="start">Start</button>
+      <button id="pause">Pause</button>
+      <button id="reset">Reset</button>
     `;
 
-    // activate the button els and add listeners
+    // Activate the button elements and add listeners
     initDOMElements();
 
     startBtn = document.getElementById("start");
     pauseBtn = document.getElementById("pause");
     resetBtn = document.getElementById("reset");
-    pomodoroBtn = document.getElementById("pomodoro");
-    longBreakBtn = document.getElementById("longBreak");
-    shortBreakBtn = document.getElementById("shortBreak");
-    minutesElement = document.getElementById("minutes");
-    secondsElement = document.getElementById("seconds");
   });
 
-  test("should update display", () => {
-    setSeconds(125); 
-    updateDisplay();
-    expect(minutesElement.innerText).toBe("02");
-    expect(secondsElement.innerText).toBe("05");
+  test('should update display', () => {
+    setTimer("pomodoro");
+    expect(document.getElementById("minutes").textContent).toBe("25");
+    expect(document.getElementById("seconds").textContent).toBe("00");
   });
 
-  test("should set timer", () => {
+  test('should set timer', () => {
     setTimer("shortBreak");
-    expect(getSeconds()).toBe(timers.shortBreak * 60);
-    expect(startBtn.disabled).toBe(false);
+    expect(document.getElementById("minutes").textContent).toBe("05");
+    expect(document.getElementById("seconds").textContent).toBe("00");
   });
 
-  test("should start timer", () => {
+  test('should start timer', () => {
+    jest.useFakeTimers();
     setTimer("pomodoro");
     startTimer();
-    expect(startBtn.disabled).toBe(true);
-    expect(pauseBtn.disabled).toBe(false);
+    jest.advanceTimersByTime(1000);
+    expect(document.getElementById("minutes").textContent).toBe("24");
+    expect(document.getElementById("seconds").textContent).toBe("59");
+    jest.useRealTimers();
   });
 
-  test("should pause timer", () => {
+  test('should pause timer', () => {
+    jest.useFakeTimers();
     setTimer("pomodoro");
     startTimer();
+    jest.advanceTimersByTime(1000);
     pauseTimer();
-    expect(startBtn.disabled).toBe(false);
-    expect(pauseBtn.disabled).toBe(true);
+    jest.advanceTimersByTime(1000);
+    expect(document.getElementById("minutes").textContent).toBe("24");
+    expect(document.getElementById("seconds").textContent).toBe("59");
+    jest.useRealTimers();
   });
 
-  test("should reset timer", () => {
+  test('should reset timer', () => {
+    jest.useFakeTimers();
     setTimer("pomodoro");
     startTimer();
+    jest.advanceTimersByTime(1000);
     resetTimer();
-    expect(getSeconds()).toBe(0);
-    expect(minutesElement.innerText).toBe("00");
-    expect(secondsElement.innerText).toBe("00");
+    expect(document.getElementById("minutes").textContent).toBe("25");
+    expect(document.getElementById("seconds").textContent).toBe("00");
+    jest.useRealTimers();
   });
 });

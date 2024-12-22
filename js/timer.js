@@ -4,114 +4,111 @@ const timers = {
   shortBreak: 5,
 };
 
-// private variable for secs needed for testing
 let _seconds = 0;
 let currentTimerType = "pomodoro";
 let iID;
 
 let startBtn, pauseBtn, resetBtn;
 
-
 function initDOMElements() {
-  startBtn = document.querySelector("#start");
-  pauseBtn = document.querySelector("#pause");
-  resetBtn = document.querySelector("#reset");
+  try {
+    startBtn = document.querySelector("#start");
+    pauseBtn = document.querySelector("#pause");
+    resetBtn = document.querySelector("#reset");
 
-  startBtn.disabled = true;
-  pauseBtn.disabled = true;
+    startBtn.disabled = false;
+    pauseBtn.disabled = true;
 
-  startBtn.addEventListener("click", startTimer);
-  pauseBtn.addEventListener("click", pauseTimer);
-  resetBtn.addEventListener("click", resetTimer);
+    startBtn.addEventListener("click", startTimer);
+    pauseBtn.addEventListener("click", pauseTimer);
+    resetBtn.addEventListener("click", resetTimer);
 
-  document.querySelectorAll("#timers button").forEach((button) => {
-    button.addEventListener("click", () => setTimer(button.id));
-  });
+    document.querySelectorAll("#timers button").forEach((button) => {
+      button.addEventListener("click", () => setTimer(button.id));
+    });
+
+    // Initialize the timer to pomodoro on page load
+    setTimer("pomodoro");
+    document.getElementById("pomodoro").classList.add("active");
+  } catch (error) {
+    console.error("Error initializing DOM elements:", error);
+  }
 }
 
-// getter and setter for the secs variable
-function getSeconds() {
-  return _seconds;
+function setTimer(timerType) {
+  try {
+    currentTimerType = timerType;
+    _seconds = timers[timerType] * 60;
+    updateDisplay();
+    clearInterval(iID);
+    iID = null;
+    startBtn.disabled = false;
+    pauseBtn.disabled = true;
+
+    // Update active button style
+    document.querySelectorAll("#timers button").forEach((button) => {
+      button.classList.remove("active");
+    });
+    document.getElementById(timerType).classList.add("active");
+  } catch (error) {
+    console.error("Error setting timer:", error);
+  }
 }
 
-function setSeconds(value) {
-  _seconds = value;
-}
-
-// update displayed time
 function updateDisplay() {
   try {
-    const minutesElement = document.getElementById("minutes");
-    const secondsElement = document.getElementById("seconds");
-
     const minutes = Math.floor(_seconds / 60);
-    const remainingSeconds = _seconds % 60;
-
-    if (minutes < 10) {
-      minutesElement.innerText = "0" + minutes;
-    } else {
-      minutesElement.innerText = minutes;
-    }
-
-    if (remainingSeconds === 0) {
-      secondsElement.innerText = "00";
-    } else if (remainingSeconds < 10) {
-      secondsElement.innerText = "0" + remainingSeconds;
-    } else {
-      secondsElement.innerText = remainingSeconds;
-    }
+    const seconds = _seconds % 60;
+    document.querySelector("#minutes").textContent = `${minutes < 10 ? '0' : ''}${minutes}`;
+    document.querySelector("#seconds").textContent = `${seconds < 10 ? '0' : ''}${seconds}`;
   } catch (error) {
-    console.error("Can't update display: ", error);
+    console.error("Error updating display:", error);
   }
 }
 
-// handle timer selection
-function setTimer(type) {
-  try {
-    clearInterval(iID);
-    currentTimerType = type;
-    setSeconds(timers[currentTimerType] * 60);
-    updateDisplay();
-    startBtn.removeAttribute("disabled");
-  } catch {
-    console.error("Can't set timer: ", error);
-  }
-}
-
-// start button starts or resumes timer
 function startTimer() {
   try {
+    if (iID) return;
     iID = setInterval(() => {
-      setSeconds(getSeconds() - 1);
-      if (getSeconds() === -1) clearInterval(iID);
-      else updateDisplay();
+      if (_seconds > 0) {
+        _seconds--;
+        updateDisplay();
+      } else {
+        clearInterval(iID);
+        iID = null;
+      }
     }, 1000);
     startBtn.disabled = true;
-    pauseBtn.removeAttribute("disabled");
-  } catch {
-    console.log("Can't start or resume timer: ", error);
+    pauseBtn.disabled = false;
+  } catch (error) {
+    console.error("Error starting timer:", error);
   }
 }
 
-// pause button
 function pauseTimer() {
   try {
     clearInterval(iID);
-    startBtn.removeAttribute("disabled");
+    iID = null;
+    startBtn.disabled = false;
     pauseBtn.disabled = true;
-  } catch {
-    console.log("Can't pause timer: ", error);
+  } catch (error) {
+    console.error("Error pausing timer:", error);
   }
 }
 
 function resetTimer() {
   try {
     clearInterval(iID);
-    setSeconds(0);
+    iID = null;
+    _seconds = timers[currentTimerType] * 60;
     updateDisplay();
-  } catch {
-    console.error("Can't reset timer: ", error);
+    startBtn.disabled = false;
+    pauseBtn.disabled = true;
+  } catch (error) {
+    console.error("Error resetting timer:", error);
   }
 }
 
-export { updateDisplay, timers, setTimer, startTimer, pauseTimer, resetTimer, currentTimerType, initDOMElements, getSeconds, setSeconds };
+document.addEventListener("DOMContentLoaded", initDOMElements);
+
+export { updateDisplay, timers, setTimer, currentTimerType, initDOMElements, startTimer, pauseTimer, resetTimer };
